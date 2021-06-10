@@ -6,6 +6,8 @@ name: CI
 # events but only for the master branch
 on:
   push:
+    tags:
+    - 'v*'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -33,8 +35,9 @@ jobs:
       - name: Action Release
         uses: yakuhzi/action-release@v1.2.0
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
           file: build/app/outputs/apk/release/app-release.apk
           changelogs: ${{ steps.Changelog.outputs.changelog }}
+   
